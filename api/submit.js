@@ -21,19 +21,22 @@ module.exports = async (req, res) => {
   if (req.method === 'POST') {
     const { message } = req.body;
 
+    // 检查留言内容是否为空
+    if (!message || message.trim() === '') {
+      return res.status(400).json({ error: 'Message content cannot be empty' });
+    }
+
     // 创建新留言
     const newMessage = new Message({ content: message });
 
     try {
       await newMessage.save();
+      console.log('Message saved successfully:', newMessage); // 添加日志
       res.status(200).json({ success: true });
     } catch (err) {
+      console.error('Failed to save message:', err); // 添加日志
       res.status(500).json({ error: 'Failed to save message' });
     }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
-  }
-};
   } else {
     res.status(405).json({ error: 'Method not allowed' });
   }
