@@ -5,10 +5,7 @@ const mongoURI = process.env.MONGO_URI;
 
 // 连接 MongoDB Atlas
 mongoose
-  .connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(mongoURI)
   .then(() => console.log('MongoDB connected successfully!'))
   .catch(err => console.error('MongoDB connection error:', err));
 
@@ -33,6 +30,10 @@ module.exports = async (req, res) => {
     } catch (err) {
       res.status(500).json({ error: 'Failed to save message' });
     }
+  } else {
+    res.status(405).json({ error: 'Method not allowed' });
+  }
+};
   } else {
     res.status(405).json({ error: 'Method not allowed' });
   }
