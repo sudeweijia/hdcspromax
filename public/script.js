@@ -50,3 +50,7 @@ function submitMessage() {
       alert('留言提交失败，请检查网络连接或稍后重试！');
     });
 }
+      console.error('Error:', error);
+      alert('留言提交失败，请检查网络连接或稍后重试！');
+    });
+}
