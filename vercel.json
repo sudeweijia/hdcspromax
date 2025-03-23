@@ -2,37 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/submit.js",
-      "use": "@vercel/node",
-      "config": {
-        "maxDuration": 30
-      }
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/",
-      "dest": "/public/index.html"
-    },
-    {
-      "src": "/main.html",
-      "dest": "/public/main.html"
-    },
-    {
-      "src": "/script.js",
-      "dest": "/public/script.js"
-    },
-    {
-      "src": "/styles.css",
-      "dest": "/public/styles.css"
-    },
-    {
-      "src": "/api/submit",
-      "dest": "/api/submit.js"
+      "src": "/(.*)",
+      "dest": "/public/$1"
     }
   ]
 }
