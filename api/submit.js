@@ -11,16 +11,12 @@ export default async function handler(req, res) {
     const db = client.db('my-database');
     const collection = db.collection('my-collection');
 
-    // 处理 POST 请求
-    if (req.method === 'POST') {
-      const { name, message } = req.body;
-      const result = await collection.insertOne({ name, message });
-      res.status(200).json({ success: true, result });
-    } else {
-      res.status(405).json({ error: 'Method not allowed' });
-    }
+    // 插入留言
+    const { message } = req.body;
+    const result = await collection.insertOne({ message, date: new Date() });
+    res.status(200).json({ success: true, result });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ success: false, error: error.message });
   } finally {
     await client.close();
   }
